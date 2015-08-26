@@ -2,6 +2,7 @@ default: clean relazione.pdf
 
 relazione.pdf: relazione.tex
 	pdflatex -shell-escape relazione.tex
+	pdflatex -shell-escape relazione.tex
 
 clean:
 	rm -vf sections/*.aux
