@@ -1,0 +1,92 @@
+\section{Introduzione}
+
+Il presente documento ha lo scopo di descrivere l'attività di stage
+svolta dallo studente presso l'azienda Innove di Thiene (Vicenza).
+
+\subsection{Lo stage}
+Scopo dell'attività di stage è stato la realizzazione della versione
+mobile (da qui in poi chiamata \fiscoloMobile) di un'applicazione web 
+già esistente (da qui in poi chiamata \fiscoloWeb) utilizzando il
+framework \textit{Phonegap} e diverse altre tecnologie innovative.
+
+\subsection[\fiscoloWeb]{\fiscoloWeb\footnote{\texttt{ http://www.fiscolo.it/}}}
+L'applicazione web esistente è indirizzata principalmente a professionisti
+e piccole aziende ed è divisa in due moduli integrati che offrono diverse 
+funzionalità, è gratuita ed offre la possibilità di passare ad una versione
+a pagamento per ottenere l'accesso a funzionalità aggiuntive. \\
+L'applicazione è sviluppata in Java e Scala tramite il framework
+Play\footnote{\texttt{ https://www.playframework.com/}}.
+
+\subsubsection{\fiscolo}
+Questo modulo si occupa di contabilità, tra le funzionalità offerte figurano:
+
+\begin{itemize}
+\item Possibilità di creare fatture ed offerte
+\item Stima dell'IVA mensile e trimestrale
+\item Gestione dei movimenti bancari
+\item Gestione di spese varie non legate ad offerte
+\item Diversi report sull'andamento della situazione economica
+\end{itemize}
+
+\subsubsection{\resa}
+Questo modulo si occupa di gestione di progetti, tra le funzionalità offerte
+figurano:
+
+\begin{itemize}
+\item Suddivisione di un progetto in attività, con scadenze fissate
+\item Timer per consuntivare il tempo speso per le diverse attività
+\item Possibilità di tenere traccia di incontri, scambi di email, telefonate
+con i diversi clienti
+\item Gestione di promemoria
+\item Diversi report sull'andamento dei progetti
+\end{itemize}
+
+\subsection{\fiscoloMobile}
+L'applicazione è stata pensata come funzionalità aggiuntiva per la versione
+a pagamento della controparte web. \\
+La vastità della controparte, la natura mobile del progetto e i limiti temporali
+dello stage hanno imposto una selezione delle funzionalità da trasporre da
+\fiscoloWeb{}.
+
+\subsubsection{Obiettivi del progetto}
+Nella fase iniziale di analisi sono state individuate le seguenti funzionalità:
+
+\begin{itemize}
+\item \textbf{Gestione dei promemoria}: per un/a utente mobile è sicuramente un vantaggio
+poterne visualizzare una lista o segnarne di nuovi in qualsiasi situazione.
+\item \textbf{Gestione delle attività}: l'applicazione offre la possibilità di prendere
+in carico un'attività di un progetto senza dover accedere al portale online
+\item \textbf{Timer}: l'aggiunta di questa funzionalità rende più agile per le/gli utenti
+la consuntivazione del tempo speso per certe attività e progetti
+\item \textbf{Gestione relazioni}: anche questa funzionalità ha un senso in contesto mobile
+in quanto permette ad esempio di segnarsi l'esito di una riunione appena conclusa, o di una
+telefonata, senza la necessità di collegarsi al portale web
+\item \textbf{Gestione costi vari}: come per il punto precedente, è vantaggioso poter tener
+traccia delle spese varie (materiale di cancelleria, pasti, ecc. tutte spese che non
+richiedono movimenti bancari). L'ambiente mobile permette inoltre nuove funzionalità rispetto
+alla versione web come quella di fotografare uno scontrino durante la creazione di un nuovo
+costo.
+\item \textbf{Visualizzazione dati dell'azienda}: qualora servissero dati come partita IVA,
+indirizzo, ecc.
+\item \textbf{Visualizzazione report vari}: una visualizzazione in dettaglio di tutti i dati
+presenti nella versione web non avrebbe molto senso per un'applicazione mobile. Si è pensato
+di mostrare i dati disponibili in forma aggregata tramite grafici.
+\end{itemize}
+
+\subsubsection{Tecnologie utilizzate}
+Per la realizzazione del progetto sono state utilizzate le seguenti tecnologie:
+
+\begin{itemize}
+\item \textbf{Phonegap\footnote{\texttt{ http://phonegap.com/}}}: framework per 
+la realizzazione di applicazioni mobile
+cross-platform utilizzando HTML5, Javascript e CSS
+\item \textbf{React\footnote{\texttt{ http://facebook.github.io/react/index.html}}}: 
+framework Javascript per la realizzazione di interfacce utente
+\item L'interfaccia con \fiscoloWeb{} è stata sviluppata tramite chiamate REST e
+scambio di dati in formato JSON
+\item Il design dell'interfaccia è stato pensato ispirandosi ai principi di
+\textit{material design\footnote{\texttt{ https://www.google.com/design/spec/material-design/introduction.html}}} e 
+realizzato utilizzando la libreria \textbf{material ui\footnote{\texttt{ http://material-ui.com/}}} per
+React.
+\end{itemize}
+
