@@ -1,0 +1,194 @@
+\section{Tecnologie utilizzate}
+
+\subsection{Phonegap}
+
+\subsubsection{Descrizione}
+Phonegap è una distribuzione di Apache Cordova, ovvero una serie di API che permettono
+di accedere a funzionalità di dispositivi mobile (come la fotocamera, sensori di posizione,
+accelerometro) da codice Javascript. \\
+
+Questo permette l'implementazione di applicazioni mobile cross platform a partire da 
+tecnologie web, senza dover sviluppare codice nativo, tutto questo è gestito tramite il
+servizio cloud \textit{Phonegap Build}\footnote{\texttt{ https://build.phonegap.com/}}. \\
+
+\subsubsection{Valutazione}
+
+\paragraph{Prototipazione}
+L'utilizzo di questo framework non ha influenzato tanto lo sviluppo dell'applicazione
+per quanto è riguardato l'architettura della stessa o lo stile di codifica. La differenza
+con altre esperienze di codifica mobile (SDK Android per il progetto del corso di Ingegneria
+del Software) si è vista soprattutto nella rapidità di prototipazione permessa dal framework. \\
+Phonegap permette di far partire l'applicazione sul browser o di scaricarla su di un
+dispositivo mobile per poterla testare mano a mano che si aggiungono nuove componenti,
+i cambiamenti infatti vengono riflessi automaticamente senza bisogno di risincronizzazione.
+
+\paragraph{Adatto alla natura dell'applicazione}
+\fiscoloMobile{} non richiede una complicata logica interna, né una base di dati complessa.
+Uno sviluppo basato su un linguaggio nativo ad oggetti (ad esempio Java per Android) avrebbe
+probabilmente complicato e appesantito il lavoro senza portare grandi vantaggi. \\
+
+L'impressione che si ha è quella che questo framework possa rendere più agile e rapido
+lo sviluppo di applicazioni (e che si adatti bene a uno sviluppo di tipo incrementale)
+che abbiano soprattutto una natura \textit{front-end}.
+
+\subsection{React}
+
+L'interfaccia utente di \fiscoloMobile{} è stata sviluppata sfruttando
+questo framework. Seguono una breve descrizione dello stesso ed una valutazione
+dei vantaggi riscontrati nel suo utilizzo.
+
+\subsubsection{Descrizione}\label{descrizione-react}
+La documentazione ufficiale di React lo definisce come un framework per applicazioni
+che debbano gestire grandi quantità di dati che cambino nel tempo\footnote{\texttt{ http://facebook.github.io/react/docs/why-react.html}} e soprattutto
+mostrare dinamicamente questi cambiamenti nella UI. \\
+
+Una interfaccia utente è vista in React come un albero di \textbf{componenti}.
+Una componente di React contiene tutte le informazioni necessarie a rappresentare
+un elemento della vista in qualsiasi momento. \\
+
+Ogni componente implementa una funzione \texttt{render} che crea una
+\textit{rappresentazione} della stessa (i.e. una stringa di markup) e la inietta
+poi nel documento (i.e. la pagina html). A un cambiamento nello stato della componente
+segue una nuova renderizzazione, cioè la creazione di una nuova rappresentazione la quale
+viene confrontata con quella precedente. Questo confronto permette di applicare
+cambiamenti solo alle parti effettivamente modificate. Tutto questo processo è detto
+di \textbf{riconciliazione} e permette di evitare la specifica di
+\textit{data-binding} espliciti. \\
+
+Altro aspetto importante è la possibilità di riutilizzo. In \fiscoloMobile{} 
+ad esempio sono stati definiti dei componenti per ogni \textit{widget} grafico (e.g.
+pulsanti, textbox, ecc.) i quali sono stati poi riutilizzati su tutte le pagine. \\
+
+\subsubsection{Valutazione}
+
+\paragraph{La V in MVC}\label{just-the-view}
+L'utilizzo di React è stato trovato vantaggioso per lo sviluppo dell'applicazione.
+\fiscoloMobile{} è infatti principalmente un'interfaccia che mostra e permette di
+manipolare dati recuperati dalla controparte web. Questo suo aspetto ben si sposa
+con la natura prettamente di \textit{view} del framework. \\
+
+Sicuramente questa è una delle più grandi differenze da altri framework Javascript
+come ad esempio Angular che si occupano di tutti gli aspetti del pattern MVC 
+(o MVVM, o MVW). \\
+
+Da un lato questo è un vantaggio perché rende questa tecnologia leggera, semplice da
+capire e rapida da imparare. Allo stesso tempo però ci si deve appoggiare ad altro
+per avere indicazioni su come strutturare il substrato di questa \textit{view}. Per
+questo si è fatto riferimento all'architettura Flux. \\
+
+\paragraph{JSX}
+Altro vantaggio riscontrato è stato la possibilità di utilizzare la sintassi JSX
+la quale, unendo javascript e html, permette di definire le componenti in modo molto
+intuitivo. Un esempio di tale sintassi è il seguente:
+
+\begin{verbatim}
+var Semaphore = React.createClass ({
+  render : {
+    return (
+      <div>
+        <span>
+          {this.state.red ?
+          Red :
+          Green}
+        </span>
+      </div>	
+    );
+  }
+});
+\end{verbatim}
+
+Questo permette di definire in modo molto semplice e rapido alcune proprietà dinamiche
+delle componenti. Il suo vantaggio principale però è nel rendere chiara a colpo d'occhio
+la struttura ad esempio di una pagina dell'applicazione la quale altro non è che una
+componente "radice" di un albero di componenti e nodi html.
+
+\subsection{Flux}
+
+Flux è un architettura per costruire applicazioni web lato client.
+
+\subsubsection{Descrizione}
+Un'applicazione flux si divide in tre parti principali:
+
+\begin{itemize}
+\item \textbf{Dispatcher}
+\item \textbf{Store}
+\item \textbf{View}
+\end{itemize}
+
+Il concetto principale dell'architettura è quello di un flusso di dati \textit{unidirezionale},
+ad esempio una azione di un/una utente su di una View crea un'azione che passa per il Dispatcher
+(singolo per l'applicazione) il quale lo trasmette ai diversi Store interessati, i quali
+aggiornano le rispettive View.
+
+\paragraph{Nella pratica}
+Questa architettura suggerisce una suddivisione del codice in package, per quanto riguarda
+\fiscoloMobile{} la struttura è la seguente:
+
+\begin{itemize}
+\item \texttt{actions}: contiene una serie di \textit{action creators}, ovvero funzioni
+che vengono chiamate dalle View e forniscono l'unico punto di accesso agli Store
+\item \texttt{components}: contiene tutte le pagine dell'applicazione, implementate tramite
+componenti React.
+	\begin{itemize}
+	\item \texttt{common}: contiene tutte le componenti grafiche dell'applicazione
+	\end{itemize}
+\item \texttt{constants}: definisce una serie di valori costanti, usati per distinguere
+le diverse possibili Action
+\item \texttt{dispatcher}: contiene il dispatcher dell'applicazione
+\item \texttt{lib}: contiene le funzionalità per implementare il widget dell'orologio sulla schermata Timer
+\item \texttt{stores}: contiene uno Store per ogni pagina, più uno di utilità generale e uno
+per la navigazione
+\end{itemize}
+
+I dati sono mantenuti dagli Store, i quali possono anche manipolarli dove necessario (ad
+esempio nell'applicazione il json ottenuto da \fiscoloWeb{} viene convertito in oggetti
+Javascript pronti per essere gestiti dalle diverse componenti di React). Gli Store offrono
+metodi getter ma non metodi setter. L'unico punto di accesso in input è tramite le Actions
+e, in ultima analisi, il Dispatcher.
+
+\subsubsection{Valutazione}
+
+\paragraph{Integrazione con React}
+React e Flux sono due tecnologie che si completano e complementano a vicenda. Da un lato
+Flux sopperisce alla mancanza di indicazioni su come strutturare il substrato della vista
+di un'applicazione da parte di React (cfr. \ref{just-the-view}). Dall'altro lato React,
+nascondendo i dettagli su come vengano effettivamente aggiornati gli elementi della pagina
+tramite il metodo \texttt{render} (cfr. \ref{descrizione-react}), rende intuibile il flusso
+di dati di Flux.
+
+\paragraph{Scalabilità}
+L'unidireazionalità del flusso di dati all'interno delle applicazioni Flux impedisce
+l'esplosione della complessità al crescere di un sistema: non sono possibili scambi di
+dati arbitrari tra View e Controller, ogni View è in ascolto su un certo numero di Store,
+ogni Store ha come unico punto di accesso delle azioni che passano attraverso il Dispatcher. \\
+
+Una volta compresa questa struttura, l'aggiunta di nuove pagine e funzionalità
+ha sempre seguito lo stesso schema.
+
+\paragraph{Debugging}
+Un movimento di dati prevedibile ha permesso operazioni di debugging più efficienti.
+
+\subsection{Material Ui}
+
+Questa libreria è stata utilizzata per implementare un'interfaccia utente il più
+possibile conforme ai principi di material design.
+
+\subsubsection{Descrizione}
+Le componenti grafiche (come bottoni, textbox, barre di navigazione ecc.) vengono
+fornite come normali componenti React con attributi, metodi ed eventi associati.
+
+\subsubsection{Valutazione}
+
+\paragraph{Rispetto dei principi di material} Le componenti rispecchiano quanto
+stabilito nella documentazione di material design e sono facilmente utilizzabili
+in ambiente React.
+
+\paragraph{Scarsa documentazione} La documentazione di Material Ui consiste soprattutto
+di brevi snippet di codice mostrati come esempio, mancano riferimenti più approfonditi ed
+esempi completi. In alcune occasioni è stato necessario studiare il sorgente\footnote{\texttt{https://github.com/callemall/material-ui}} per capire il
+funzionamento di alcune componenti.
+
+\paragraph{Poca libertà di azione} La personalizzazione delle diverse componenti non è
+semplice. In certi casi vengono offerti degli attributi che permettono di sovrascriverne
+lo stile con css personale, in altri casi è stato necessario scrivere codice css piuttosto
+complicato per raggiungere i nodi rilevanti.
