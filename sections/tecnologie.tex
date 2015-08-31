@@ -1,6 +1,6 @@
 \section{Tecnologie utilizzate}
 
-\subsection{Phonegap}
+\subsection{Phonegap}\label{phonegap}
 
 \subsubsection{Descrizione}
 Phonegap è una distribuzione di Apache Cordova, ovvero una serie di API che permettono
@@ -11,7 +11,7 @@ Questo permette l'implementazione di applicazioni mobile cross platform a partir
 tecnologie web, senza dover sviluppare codice nativo, tutto questo è gestito tramite il
 servizio cloud \textit{Phonegap Build}\footnote{\texttt{ https://build.phonegap.com/}}. \\
 
-\subsubsection{Valutazione}
+\subsubsection{Vantaggi}
 
 \paragraph{Prototipazione}
 L'utilizzo di questo framework non ha influenzato tanto lo sviluppo dell'applicazione
@@ -31,7 +31,7 @@ L'impressione che si ha è quella che questo framework possa rendere più agile 
 lo sviluppo di applicazioni (e che si adatti bene a uno sviluppo di tipo incrementale)
 che abbiano soprattutto una natura \textit{front-end}.
 
-\subsection{React}
+\subsection{React}\label{react}
 
 L'interfaccia utente di \fiscoloMobile{} è stata sviluppata sfruttando
 questo framework. Seguono una breve descrizione dello stesso ed una valutazione
@@ -59,7 +59,7 @@ Altro aspetto importante è la possibilità di riutilizzo. In \fiscoloMobile{}
 ad esempio sono stati definiti dei componenti per ogni \textit{widget} grafico (e.g.
 pulsanti, textbox, ecc.) i quali sono stati poi riutilizzati su tutte le pagine. \\
 
-\subsubsection{Valutazione}
+\subsubsection{Vantaggi}
 
 \paragraph{La V in MVC}\label{just-the-view}
 L'utilizzo di React è stato trovato vantaggioso per lo sviluppo dell'applicazione.
@@ -102,10 +102,24 @@ delle componenti. Il suo vantaggio principale però è nel rendere chiara a colp
 la struttura ad esempio di una pagina dell'applicazione la quale altro non è che una
 componente "radice" di un albero di componenti e nodi html.
 
-%TODO aggiungere tra i lati negativi la mancanza di supporto alle transizioni
-%TODO aggiungere tra i lati negativi la mancanza di supporto a applicazioni multi pagina
+\subsubsection{Svantaggi}
 
-\subsection{Flux}
+\paragraph{Documentazione}
+La documentazione presente sulla pagina ufficiale di React è stata sicuramente di aiuto
+soprattutto per le fasi iniziali del progetto ma presenta alcuni aspetti potenzialmente
+problematici:
+
+\begin{itemize}
+\item A prima vista è vagamente disorientante: sono presenti tre diverse guide di
+\textit{quick start} (da quale iniziare?) e una serie di guide più approfondite che
+non seguono però un ordine preciso. La documentazione non è insomma particolarmente
+indirizzata ad utenti alle prime armi.
+\item Non sono presenti particolari indicazioni su come strutturare applicazioni
+a più pagine, l'assunzione che sembra permeare la maggior parte degli esempi e della
+documentazione è che si debba sviluppare per una singola pagina.
+\end{itemize}
+
+\subsection{Flux}\label{flux}
 
 Flux è un architettura per costruire applicazioni web lato client.
 
@@ -149,7 +163,7 @@ Javascript pronti per essere gestiti dalle diverse componenti di React). Gli Sto
 metodi getter ma non metodi setter. L'unico punto di accesso in input è tramite le Actions
 e, in ultima analisi, il Dispatcher.
 
-\subsubsection{Valutazione}
+\subsubsection{Vantaggi}
 
 \paragraph{Integrazione con React}
 React e Flux sono due tecnologie che si completano e complementano a vicenda. Da un lato
@@ -180,20 +194,38 @@ possibile conforme ai principi di material design.
 Le componenti grafiche (come bottoni, textbox, barre di navigazione ecc.) vengono
 fornite come normali componenti React con attributi, metodi ed eventi associati.
 
-\subsubsection{Valutazione}
+\subsubsection{Vantaggi}
 
-\paragraph{Rispetto dei principi di material} Le componenti rispecchiano quanto
-stabilito nella documentazione di material design e sono facilmente utilizzabili
-in ambiente React.
+\paragraph{Rispetto dei principi di material}
+Le componenti rispecchiano in larga
+misura quanto stabilito nella documentazione di material design e sono facilmente 
+utilizzabili in ambiente React.
 
-\paragraph{Scarsa documentazione} La documentazione di Material Ui consiste soprattutto
+\subsubsection{Svantaggi}
+
+\paragraph{Scarsa documentazione}
+La documentazione di Material Ui consiste soprattutto
 di brevi snippet di codice mostrati come esempio, mancano riferimenti più approfonditi ed
 esempi completi. In alcune occasioni è stato necessario studiare il sorgente\footnote{\texttt{https://github.com/callemall/material-ui}} per capire il
 funzionamento di alcune componenti.
 
-\paragraph{Poca libertà di azione} La personalizzazione delle diverse componenti non è
+\paragraph{Poca libertà di azione}
+La personalizzazione delle diverse componenti non è
 semplice. In certi casi vengono offerti degli attributi che permettono di sovrascriverne
 lo stile con css personale, in altri casi è stato necessario scrivere codice css piuttosto
 complicato per raggiungere i nodi rilevanti.
 
-%TODO aggiungere problema drop down menù
+\paragraph{Problemi con alcuni widget}
+Si è riscontrato un problema non documentato
+per il widget dei menù a tendina: la selezione di un nuovo elemento causava un errore
+segnalato dall'inspector di Chrome con il messaggio \textit{console.assert
+is not a function}. Tale funzione viene infatti invocata dal codice della componente
+\texttt{DropDownMenu} di Material Ui. Non è stata trovata documentazione di alcun tipo
+riguardo questo errore e il problema è stato risolto ridefinendo il metodo
+\texttt{console.assert} come un NOOP.
+
+\paragraph{Mancanza di supporto alle transizioni}
+Non sono stati trovati riferimenti
+o documentazione a riguardo delle transizioni e in generale di animazioni che andassero
+oltre un semplice \textit{touch ripple}. Questi aspetti sono però molto importanti per
+material design (cfr. \ref{material-animation}).
