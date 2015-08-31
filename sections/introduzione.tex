@@ -53,7 +53,7 @@ Nella fase iniziale di analisi sono state individuate le seguenti funzionalità:
 
 \begin{itemize}
 \item \textbf{Gestione dei promemoria}: per un/a utente mobile è sicuramente un vantaggio
-poterne visualizzare una lista o segnarne di nuovi in qualsiasi situazione.
+poterne visualizzare una lista o segnarne di nuovi in qualsiasi situazione
 \item \textbf{Gestione delle attività}: l'applicazione offre la possibilità di prendere
 in carico un'attività di un progetto senza dover accedere al portale online
 \item \textbf{Timer}: l'aggiunta di questa funzionalità rende più agile per le/gli utenti
@@ -73,20 +73,26 @@ presenti nella versione web non avrebbe molto senso per un'applicazione mobile. 
 di mostrare i dati disponibili in forma aggregata tramite grafici.
 \end{itemize}
 
+\subsubsection{Struttura dell'applicazione}
+\fiscoloMobile{} è stata pensata come applicazione leggera, che non necessiti di particolari
+elaborazioni interne, o di un database sul dispositivo. \\
+Tutti i dati mostrati vengono recuperati da \fiscoloWeb{} tramite chiamate GET e tutti i
+nuovi dati vengono salvati tramite chiamate POST. Per evitare problemi di sincronizzazione
+tra mobile e web i dati vengono recuperati ad ogni apertura di pagina. \\
+
 \subsubsection{Tecnologie utilizzate}
 Per la realizzazione del progetto sono state utilizzate le seguenti tecnologie:
 
 \begin{itemize}
 \item \textbf{Phonegap\footnote{\texttt{ http://phonegap.com/}}}: framework per 
 la realizzazione di applicazioni mobile
-cross-platform utilizzando HTML5, Javascript e CSS
+cross-platform utilizzando HTML5, Javascript e CSS (cfr. \ref{phonegap})
 \item \textbf{React\footnote{\texttt{ http://facebook.github.io/react/index.html}}}: 
-framework Javascript per la realizzazione di interfacce utente
+framework Javascript per la realizzazione di interfacce utente (cfr. \ref{react})
 \item L'interfaccia con \fiscoloWeb{} è stata sviluppata tramite chiamate REST e
 scambio di dati in formato JSON
 \item Il design dell'interfaccia è stato pensato ispirandosi ai principi di
 \textit{material design\footnote{\texttt{ https://www.google.com/design/spec/material-design/introduction.html}}} e 
-realizzato utilizzando la libreria \textbf{material ui\footnote{\texttt{ http://material-ui.com/}}} per
-React.
+realizzato utilizzando la libreria \textbf{material ui\footnote{\texttt{ http://material-ui.com/}}} per React (cfr. \ref{material-ui}).
 \end{itemize}
 
