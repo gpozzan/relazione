@@ -13,7 +13,7 @@ di registrare un nuovo account (è infatti pensata per accompagnare la versione 
 pagamento di \fiscoloWeb). Per implementare questa funzionalità è stato necessario
 apportare qualche modifica a \fiscoloWeb{}, nello specifico è stata aggiunta la possibilità
 di associare ad ogni utente un token di autenticazione (a durata limitata) il quale viene
-inviato da \fiscoloMobile{} insieme allo username negli header delle varie chiamate REST.
+inviato da \fiscoloMobile{} insieme allo username negli header delle varie chiamate \gloss{REST}.
 \item \textbf{Promemoria}
 \item \textbf{Relazioni}: l'insieme delle relazioni era inizialmente mostrato con una
 lista (cfr. \ref{schede-liste}), si è passati alle schede in vista della possibilità
@@ -24,11 +24,11 @@ un normale bottone (cfr. \ref{bottoni}), si è deciso infine di utilizzare un
 prettamente mobile
 \item \textbf{Timer}: questa pagina ha subito una serie di cambiamenti in seguito a
 consultazione con l'azienda. Nella prima versione veniva offerta la possibilità di creare
-nuove attività e la presentazione generale era meno intuitiva. Si è scelto di semplificare
+nuove \gloss{attività} e la presentazione generale era meno intuitiva. Si è scelto di semplificare
 il più possibile in modo da offrire poche e chiare opzioni alle/agli utenti. Nello specifico
 è stata individuata nel timer vero e proprio la funzionalità principale, all'apertura della
 sezione viene dunque mostrato direttamente il timer delle attività prese in carico e offerta
-la possibilità di prenderne in carico di nuove visualizzando la lista dei progetti e delle
+la possibilità di prenderne in carico di nuove visualizzando la lista dei \gloss{progetti} e delle
 attività relative. La funzionalità di creazione di nuove attività è stata rimossa in quanto
 probabilmente non interessante per un/a utente mobile.
 \item \textbf{Home page}
@@ -62,7 +62,7 @@ sono state:
 	\item \textit{Mancanza di pulizia delle strutture dati contenenti di una pagina}:
 	sono stati necessari degli usi prolungati dell'applicazione per rendersi conto che in
 	certi casi i dati ottenuti dalle chiamate GET venivano semplicemente aggiunti a delle
-	liste e dunque ad ogni visita venivano mostrati sdoppiati, triplicati,
+	liste e dunque ad ogni visita venivano mostrati raddoppiati, triplicati,
 	ecc. Per risolvere questo problema è stato sufficiente ripulire le strutture dati ad ogni
 	caricamento di pagina.
 	\item \textit{Problemi di autenticazione}: la prima versione del login dell'applicazione

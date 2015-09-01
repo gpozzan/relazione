@@ -1,4 +1,4 @@
-\section{Design e usabilità mobile}
+\section{Design e \gloss{usabilità} mobile}
 Il design dell'applicazione è stato pensato ispirandosi ai principi di material design
 e facendo riferimento a diversi scritti di Luke Wroblewski\footnote{\texttt{ http://www.lukew.com/ff/}}.
 
@@ -48,7 +48,8 @@ il promemoria.
 Sono state utilizzate delle schede per le seguenti pagine:
 \begin{itemize}
 \item \textbf{Lista relazioni}: una relazione consiste di una data, una descrizione, un
-eventuale indirizzo, una categoria (telefonata, email, incontro) e il nome di un contatto.
+eventuale indirizzo, una categoria (telefonata, email, incontro) e il nome di un
+\gloss{contatto}.
 Si è pensato di utilizzare delle schede anche in vista di eventuali sviluppi futuri,
 ad esempio qualora venisse fornito un indirizzo potrebbe essere mostrata una mappa.
 Allo stato attuale le schede mostrano la categoria di relazione (tramite un'icona),
@@ -94,16 +95,17 @@ animazioni che siano logicamente correlate con le azioni degli/delle utenti.
 \begin{itemize}
 \item Gli elementi di un'applicazione devono essere percepiti come tangibili, anche
 se separati dall'utente da uno strato di vetro, per far questo devono rispondere agli
-input, ad esempio con \textbf{reazioni di superificie} le quali confermano
+input, ad esempio con \textbf{reazioni di superificie} (\textit{\gloss{touch ripple}})
+le quali confermano
 e riconoscono istantaneamente l'input ricevuto. \textbf{Nb}: tali reazioni devono
 partire dal \textit{punto di contatto}. \\
-In questo caso material ui (cfr. \ref{material-ui}) ha fornito in automatico le animazioni
+In questo caso Material Ui (cfr. \ref{material-ui}) ha fornito in automatico le animazioni
 necessarie, si è quindi riusciti a rispettare i principi di material design.
 \item La navigazione tra diverse pagine deve essere accompagnata da
 \textbf{transizioni} significative, che aiutino le/gli utenti a concentrare la loro
 attenzione nei punti di maggiore importanza. \\
-Non si è riusciti a rispettare questo punto in quanto material ui non fornisce supporto
-alle transizionie in generale non è stata trovata documentazione di supporto per
+Non si è riusciti a rispettare questo punto in quanto Material Ui non fornisce supporto
+alle transizioni e in generale non è stata trovata documentazione di supporto per
 React.
 \end{itemize}
 
@@ -145,7 +147,8 @@ inserito come password e i vantaggi di sicurezza di poterlo occultare in caso di
 \end{itemize}
 
 In \fiscoloMobile{} si è dunque scelto di implementare questa funzionalità mostrando di
-default la password e permettendo di occultarla con un tap su di un'icona a forma di occhio
+default la password e permettendo di occultarla con un \gloss{tap} su di un'icona a forma di
+occhio
 (si perde leggermente in chiarezza rispetto a un pulsante con del testo, ma si è fatto un
 compromesso per questioni di design).
 

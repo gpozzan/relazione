@@ -47,13 +47,13 @@ Una componente di React contiene tutte le informazioni necessarie a rappresentar
 un elemento della vista in qualsiasi momento. \\
 
 Ogni componente implementa una funzione \texttt{render} che crea una
-\textit{rappresentazione} della stessa (i.e. una stringa di markup) e la inietta
+\textit{rappresentazione} della stessa (i.e. una stringa di \gloss{markup}) e la inietta
 poi nel documento (i.e. la pagina html). A un cambiamento nello stato della componente
 segue una nuova renderizzazione, cioè la creazione di una nuova rappresentazione la quale
 viene confrontata con quella precedente. Questo confronto permette di applicare
 cambiamenti solo alle parti effettivamente modificate. Tutto questo processo è detto
 di \textbf{riconciliazione} e permette di evitare la specifica di
-\textit{data-binding} espliciti. \\
+\textit{\gloss{data-binding}} espliciti. \\
 
 Altro aspetto importante è la possibilità di riutilizzo. In \fiscoloMobile{} 
 ad esempio sono stati definiti dei componenti per ogni \textit{widget} grafico (e.g.
@@ -68,8 +68,8 @@ manipolare dati recuperati dalla controparte web. Questo suo aspetto ben si spos
 con la natura prettamente di \textit{view} del framework. \\
 
 Sicuramente questa è una delle più grandi differenze da altri framework Javascript
-come ad esempio Angular che si occupano di tutti gli aspetti del pattern MVC 
-(o MVVM, o MVW). \\
+come ad esempio Angular che si occupano di tutti gli aspetti del pattern \gloss{MVC}
+(o \gloss{MVVM}, o \gloss{MVW}). \\
 
 Da un lato questo è un vantaggio perché rende questa tecnologia leggera, semplice da
 capire e rapida da imparare. Allo stesso tempo però ci si deve appoggiare ad altro
@@ -158,7 +158,7 @@ per la navigazione
 \end{itemize}
 
 I dati sono mantenuti dagli Store, i quali possono anche manipolarli dove necessario (ad
-esempio nell'applicazione il json ottenuto da \fiscoloWeb{} viene convertito in oggetti
+esempio nell'applicazione il \gloss{JSON} ottenuto da \fiscoloWeb{} viene convertito in oggetti
 Javascript pronti per essere gestiti dalle diverse componenti di React). Gli Store offrono
 metodi getter ma non metodi setter. L'unico punto di accesso in input è tramite le Actions
 e, in ultima analisi, il Dispatcher.
@@ -222,7 +222,7 @@ segnalato dall'inspector di Chrome con il messaggio \textit{console.assert
 is not a function}. Tale funzione viene infatti invocata dal codice della componente
 \texttt{DropDownMenu} di Material Ui. Non è stata trovata documentazione di alcun tipo
 riguardo questo errore e il problema è stato risolto ridefinendo il metodo
-\texttt{console.assert} come un NOOP.
+\texttt{console.assert} come un \gloss{NOOP}.
 
 \paragraph{Mancanza di supporto alle transizioni}
 Non sono stati trovati riferimenti
