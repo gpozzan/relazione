@@ -1,0 +1,106 @@
+\section{Esiti del progetto}
+
+Lo sviluppo dell'applicazione ha richiesto un periodo di circa quattro settimane.
+Si è scelto di concentrarsi prima sulle parti più complesse e interessanti per
+un'applicazione mobile, partendo dunque da tutte le funzionalità che offrono possibilità
+di input da parte dell'utente e lasciando per ultime quelle di pura reportistica. \\
+
+Le funzionalità implementate sono dunque, in ordine:
+
+\begin{enumerate}
+\item \textbf{Login}: l'applicazione offre la possibilità di autenticarsi, non quella
+di registrare un nuovo account (è infatti pensata per accompagnare la versione a
+pagamento di \fiscoloWeb). Per implementare questa funzionalità è stato necessario
+apportare qualche modifica a \fiscoloWeb{}, nello specifico è stata aggiunta la possibilità
+di associare ad ogni utente un token di autenticazione (a durata limitata) il quale viene
+inviato da \fiscoloMobile{} insieme allo username negli header delle varie chiamate REST.
+\item \textbf{Promemoria}
+\item \textbf{Relazioni}: l'insieme delle relazioni era inizialmente mostrato con una
+lista (cfr. \ref{schede-liste}), si è passati alle schede in vista della possibilità
+futura di mostrare delle mappe associate agli indirizzi degli incontri
+\item \textbf{Costi}: la possibilità di scattare foto era inizialmente raggiungibile tramite
+un normale bottone (cfr. \ref{bottoni}), si è deciso infine di utilizzare un
+\textit{floating action button} per promuovere ed evidenziare questa funzionalità
+prettamente mobile
+\item \textbf{Timer}: questa pagina ha subito una serie di cambiamenti in seguito a
+consultazione con l'azienda. Nella prima versione veniva offerta la possibilità di creare
+nuove attività e la presentazione generale era meno intuitiva. Si è scelto di semplificare
+il più possibile in modo da offrire poche e chiare opzioni alle/agli utenti. Nello specifico
+è stata individuata nel timer vero e proprio la funzionalità principale, all'apertura della
+sezione viene dunque mostrato direttamente il timer delle attività prese in carico e offerta
+la possibilità di prenderne in carico di nuove visualizzando la lista dei progetti e delle
+attività relative. La funzionalità di creazione di nuove attività è stata rimossa in quanto
+probabilmente non interessante per un/a utente mobile.
+\item \textbf{Home page}
+\end{enumerate}
+
+Le ulteriori funzionalità previste (quelle di reportistica indicate in \ref{obiettivi})
+non sono state implementate in quanto l'ultimo periodo di sviluppo è stato dedicato
+alla veste grafica dell'applicazione e a tutta una serie di aspetti necessari per un
+primo rilascio, ovvero:
+
+\begin{itemize}
+\item \textbf{Controllo di connessione}: l'applicazione necessita di una connessione
+per funzionare, è stato dunque aggiunto un controllo relativo ed una pagina esplicativa
+nel caso la rete non fosse disponibile
+\item \textbf{Rilascio su Phonegap Build}: il codice è stato caricato e testato sul servizio
+cloud di build di Phonegap
+\item \textbf{Splash Screen}: è stata disegnata e impostata una splash screen da mostrare
+al caricamento dell'applicazione
+\item \textbf{Documentazione}: è stato scritto un piccolo manuale dello sviluppatore che
+riassume i passi necessari ad installare i diversi strumenti necessari allo sviluppo con
+Phonegap, React, Flux, ecc. e illustra brevemente l'architettura dell'applicazione e
+il funzionamento e la relazione tra le sue diverse parti
+\item \textbf{Transizioni}: sono stati fatti dei tentativi per inserire transizioni ed
+animazioni in linea con i principi di material design (cfr. \ref{material-animation}).
+Tali tentativi non hanno purtroppo avuto buon esito in quanto ci si è scontrati con
+i problemi esposti nella sezione \ref{svantaggi-material-ui}.
+\item \textbf{Test}: la solidità dell'applicazione è stata testata a fondo su emulatori
+e dispositivi mobile, le problematiche principali individuate da questi test di sistema
+sono state:
+	\begin{itemize}
+	\item \textit{Mancanza di pulizia delle strutture dati contenenti di una pagina}:
+	sono stati necessari degli usi prolungati dell'applicazione per rendersi conto che in
+	certi casi i dati ottenuti dalle chiamate GET venivano semplicemente aggiunti a delle
+	liste e dunque ad ogni visita venivano mostrati sdoppiati, triplicati,
+	ecc. Per risolvere questo problema è stato sufficiente ripulire le strutture dati ad ogni
+	caricamento di pagina.
+	\item \textit{Problemi di autenticazione}: la prima versione del login dell'applicazione
+	si limitava a registrare in sessione lo username dell'utente, in realtà per il corretto
+	funzionamento di \fiscoloWeb{} è necessaria anche la registrazione del nome dell'azienda
+	relativa (una variabile detta \texttt{business}). Questo problema è rimasto celato per
+	diverso tempo in quanto durante lo sviluppo si era quasi sempre già connessi ed autenticati
+	a \fiscoloWeb{} e si è manifestato nella prima fase di testing vero e proprio utilizzando
+	soltanto l'applicazione mobile. Il problema ha evidenziato quanto sia complesso lavorare
+	con codice esistente (e quanto la documentazione dello stesso possa aiutare uno
+	sviluppatore esterno) e l'attenzione necessaria per interazioni con ed estensioni dello
+	stesso.
+	\item \textit{Refresh delle pagine}: dopo l'inserzione di nuovi dati (ad esempio un nuovo
+	promemoria) è giusto visualizzare immediatamente i risultati sulla lista relativa.
+	L'implementazione originale richiedeva certe volte un refresh manuale della pagina per
+	mostrare i risultati, per risolvere il problema è stato necessario spostare le chiamate
+	relative alle funzioni di callback invocate al successo delle chiamate REST.
+	\end{itemize}
+\end{itemize}
+
+Gli esiti del progetto sono stati ritenuti soddisfacenti dall'azienda in quanto sono
+state sviluppate tutte le funzionalità che richiedono input da parte degli/delle utenti
+e quindi offrono dei vantaggi effettivi e si è riusciti alla fine ad ottenere un prodotto
+pronto per un primo rilascio.
+
+\begin{table} [H] \centering
+\begin{tabularx}{\textwidth}{|X|c|}
+\hline
+\textbf{Obiettivo} & \textbf{Stato} \\ \hline
+Funzionalità di autenticazione & \checkmark \\ \hline
+Inserimento e consultazione di promemoria & \checkmark \\ \hline
+Inserimento e consultazione di relazioni & \checkmark \\ \hline
+Inserimento e consultazione di costi & \checkmark \\ \hline
+Funzionalità di caricamento di foto relative ai costi & \checkmark \\ \hline
+Funzionalità di timer e possibilità di prendere in carico attività & \checkmark \\ \hline
+Riassunto dati salienti dell'azienda & \checkmark \\ \hline
+Funzionalità di reportistica & X \\ \hline
+Transizioni ed animazioni in linea coi principi di material design & X \\ \hline
+\end{tabularx}
+\caption{Riassunto dello stato di raggiungimento degli obiettivi}
+\end{table}
