@@ -124,44 +124,104 @@ documentazione è che si debba sviluppare per una singola pagina.
 Flux è un architettura per costruire applicazioni web lato client.
 
 \subsubsection{Descrizione}
-Un'applicazione flux si divide in tre parti principali:
+L'idea alla base dell'architettura è quella di un flusso di dati \textit{unidirezionale},
+questo per rendere le applicazioni scalabili in dimensione senza crescita proporzionale
+di complessità: il pericolo è quello di una serie di dipendenze tra le componenti e di reazioni
+a catena ai cambiamenti che diventano difficilmente prevedibili in un sistema complesso. \\
+Si cerca dunque di evitare questo lasciando che sia il modello stesso (che in questo caso
+si può considerare come una versione aumentata del modello di MVC) a gestire i propri dati
+e reagire ai cambiamenti, in modo del tutto trasparente all'esterno. \\
+
+Un'applicazione Flux è composta dalle seguenti parti:
 
 \begin{itemize}
-\item \textbf{Dispatcher}
-\item \textbf{Store}
-\item \textbf{View}
+\item \textbf{Store}: questi sono il modello dei dati (contengono la cosiddetta \textit{business
+logic} dell'applicazione), tale modello non è però inerte, è compito degli Store infatti la
+gestione dei dati e dei loro cambiamenti e la notifica di questi ultimi. Ogni Store si registra
+su una componente detta \textit{Dispatcher} a determinate \textit{tipologie} di azioni (i.e.
+input dall'esterno) e fornisce una funzione di callback che gestisce l'aggiornamento dei dati.
+Espongono solo metodi \textit{getter}, i dati in input devono passare per il Dispatcher.
+\item \textbf{View}: le viste di Flux si dividono in due sottocategorie:
+	\begin{itemize}
+	\item \textbf{Controller-View}: queste sono poste alla radice di un albero di componenti
+	e hanno il compito di ascoltare i cambiamenti emessi in broadcast dagli Store e di aggiornare
+	le viste subordinate quando necessario.
+	\item \textbf{View semplici}: queste possono essere semplici componenti React che vengono
+	aggiornate dalle Controller-View.
+	\end{itemize}
+\item \textbf{Dispatcher}: questa componente è unica per un'applicazione, offre metodi
+che permettono agli Store di registrarsi per certe categorie di azioni. Inoltre offre la
+possibilità di gestire le dipendenze tra gli Store e di strutturarli gerarchicamente.
+\item \textbf{Action creators}: queste sono sostanzialmente librerie di funzionalità per le
+diverse parti dell'applicazione. Non sono essenziali in quanto espongono metodi che
+incapsulano chiamate al Dispatcher, aggiungono però molto valore in chiarezza e
+comprensibilità del sistema in quanto offrono un'interfaccia che riassume tutti i cambiamenti
+possibili all'interno dell'applicazione.
 \end{itemize}
-
-Il concetto principale dell'architettura è quello di un flusso di dati \textit{unidirezionale},
-ad esempio una azione di un/una utente su di una View crea un'azione che passa per il Dispatcher
-(singolo per l'applicazione) il quale lo trasmette ai diversi Store interessati, i quali
-aggiornano le rispettive View.
 
 \paragraph{Nella pratica}
 Questa architettura suggerisce una suddivisione del codice in package, per quanto riguarda
-\fiscoloMobile{} la struttura è la seguente:
+\fiscoloMobile{} la struttura (nelle sue parti relative a Flux) è la seguente:
 
 \begin{itemize}
-\item \texttt{actions}: contiene una serie di \textit{action creators}, ovvero funzioni
-che vengono chiamate dalle View e forniscono l'unico punto di accesso agli Store
+\item \texttt{actions}: contiene tutti gli action creators, suddivisi per pagina
 \item \texttt{components}: contiene tutte le pagine dell'applicazione, implementate tramite
 componenti React.
 	\begin{itemize}
 	\item \texttt{common}: contiene tutte le componenti grafiche dell'applicazione
 	\end{itemize}
 \item \texttt{constants}: definisce una serie di valori costanti, usati per distinguere
-le diverse possibili Action
-\item \texttt{dispatcher}: contiene il dispatcher dell'applicazione
-\item \texttt{lib}: contiene le funzionalità per implementare il widget dell'orologio sulla schermata Timer
+le diverse \textit{tipologie} di azioni
+\item \texttt{dispatcher}: contiene il Dispatcher dell'applicazione
 \item \texttt{stores}: contiene uno Store per ogni pagina, più uno di utilità generale e uno
 per la navigazione
 \end{itemize}
 
-I dati sono mantenuti dagli Store, i quali possono anche manipolarli dove necessario (ad
-esempio nell'applicazione il \gloss{JSON} ottenuto da \fiscoloWeb{} viene convertito in oggetti
-Javascript pronti per essere gestiti dalle diverse componenti di React). Gli Store offrono
-metodi getter ma non metodi setter. L'unico punto di accesso in input è tramite le Actions
-e, in ultima analisi, il Dispatcher.
+\paragraph{Un esempio}
+Per capire le relazioni tra le diverse componenti può essere utile vedere un esempio. \\
+
+Si consideri il text field utilizzato nella schermata di login di \fiscoloMobile{},
+come spiegato in sezione \ref{password}, è possibile mascherare o meno il testo
+inserito tramite un bottone.
+Le componenti in gioco sono dunque:
+
+\begin{itemize}
+\item \texttt{LoginPage}: questa è la \textit{Controller-View} che gestisce l'intera
+pagina di login, al caricamento si registra come ascoltatrice dei cambiamenti emessi
+da \texttt{LoginStore} e fornisce una funzione di callback \texttt{onChange}.
+\item \texttt{FiscoloTextInput}: questa è la \textit{View} relativa al campo password
+della pagina di login, il suo stato è mantenuto da \texttt{LoginPage}.
+\item \texttt{FiscoloIconButton}: la \textit{View} relativa al bottone da cliccare per
+aggiungere o togliere la mascheratura alla password.
+\item \texttt{LoginActions}: qui sono riassunti tutti i possibili cambiamenti causati
+da azioni esterne all'applicazione, in particolare vi è un metodo \texttt{switchPasswordType}
+che permette di aggiungere o togliere la mascheratura.
+\item \texttt{LoginStore}: qui è contenuto lo stato della pagina e qui avvengono effettivamente
+i cambiamenti suscitati dalle azioni.
+\end{itemize}
+
+Un click sul bottone causa questa catena di eventi:
+
+\begin{enumerate}
+\item Viene invocata la funzione \texttt{switchPasswordType} di \texttt{LoginPage} che
+chiama a sua volta la omonima di \texttt{LoginActions}.
+\item Tale invocazione fa sì che il \textit{Dispatcher} trasmetta in broadcast un'azione con
+tipologia \texttt{Constants.LOGIN\_SWITCH\_PASSWORD\_TYPE}.
+\item L'azione viene ascoltata da \texttt{LoginStore} che invoca dunque la sua funzione
+di callback che consiste di uno \textit{switch} che smista le azioni (in base alla tipologia)
+chiamando diverse funzioni. La tipologia dell'azione causa quindi l'invocazione della
+funzione \texttt{switchPasswordType} di \texttt{LoginStore}.
+\item Tale funzione modifica i dati all'interno dello \textit{Store}, in particolare cambia un
+campo dati contenente la tipologia della stringa e un campo dati contenente il nome
+dell'icona del bottone.
+\item Dopo questi cambiamenti la funzione emette in broadcast un evento di \textit{cambiamento}.
+\item \texttt{LoginPage}, essendosi registrata ai cambiamenti emessi da \texttt{LoginStore},
+invoca la sua funzione di callback \texttt{onChange} che, usando i metodi getter offerti dallo
+\textit{Store}, recupera tutti i dati necessari ad aggiornare lo stato. L'invocazione di questo metodo
+fa partire inoltre un nuovo ciclo di rendering e la vista viene così aggiornata (la password
+sarà mascherata o meno, l'icona mostrerà un occhio aperto o chiuso).
+\end{enumerate}
+
 
 \subsubsection{Vantaggi}
 
@@ -184,6 +244,22 @@ ha sempre seguito lo stesso schema.
 
 \paragraph{Debugging}
 Un movimento di dati prevedibile ha permesso operazioni di debugging più efficienti.
+
+\subsubsection{Svantaggi}
+
+\paragraph{Documentazione}
+Sul sito ufficiale di Flux sono offerte alcune guide di \textit{quick start} e poca
+altra documentazione. Queste permettono di capire abbastanza bene l'idea alla base
+del'architettura, la relazione tra le diverse componenti ecc. Tuttavia entrambe le
+applicazioni usate come esempio sono a singola pagina e non vengono fornite indicazioni
+su come gestire un sistema di navigazione. \\
+Questo ha causato qualche problema nelle fasi iniziali del progetto in quanto non
+mi era molto chiaro come gestire il passaggio tra le diverse pagine dell'applicazione. \\
+Il problema è stato infine risolto costruendo un apposito \textit{Store} di navigazione
+che si mette in ascolto di una categoria di azioni \texttt{Constants.NAV\_*} e si occupa
+della renderizzazione delle nuove pagine. \\
+Tale soluzione è risultata funzionale per l'applicazione ma non è chiaro se sia una modalità
+ideale per l'architettura, o se ci possano essere soluzioni migliori.
 
 \subsection{Material Ui}\label{material-ui}
 
@@ -245,8 +321,6 @@ testata in una fase iniziale, è stato utilizzato il modulo \texttt{react-chartj
 React e sono stati fatti alcuni test di integrazione. Tali test hanno dato buoni
 risultati ai primi tentativi, l'impressione ricavata è stata dunque molto buona.
 
-\subsection{Riassunto}
-
 \begin{table} [H] \centering
 \begin{tabularx}{\textwidth}{|c|X|}
 \hline
@@ -264,7 +338,10 @@ risultati ai primi tentativi, l'impressione ricavata è stata dunque molto buona
 \textit{Vantaggi}
 & Perfetta integrazione con React \\ \hline
 & Comprensibilità e scalabilità una volta appresi meccanismi e il flusso dati \\ \hline
-& Debugging semplificato dal flusso dati unidirezionale \\ \hline \hline
+& Debugging semplificato dal flusso dati unidirezionale \\ \hline 
+\textit{Svantaggi}
+& Documentazione scarsa e con lacune su aspetti importanti del progetto (navigazione) \\ \hline
+\hline
 \textbf{Material Ui} & \\ \hline
 \textit{Vantaggi}
 & Buona implementazione degli aspetti grafici (forma, spazi, ecc.) di material design \\ \hline
