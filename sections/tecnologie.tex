@@ -124,6 +124,13 @@ documentazione è che si debba sviluppare per una singola pagina.
 Flux è un architettura per costruire applicazioni web lato client.
 
 \subsubsection{Descrizione}
+
+\begin{figure}[H]\label{imgFluxDataFlow}
+	\centering
+	\includegraphics[width=1\columnwidth]{images/flux-data-flow.png}
+	\caption{Il flusso dati di Flux}
+\end{figure}
+
 L'idea alla base dell'architettura è quella di un flusso di dati \textit{unidirezionale},
 questo per rendere le applicazioni scalabili in dimensione senza crescita proporzionale
 di complessità: il pericolo è quello di una serie di dipendenze tra le componenti e di reazioni
@@ -320,6 +327,12 @@ Nonostante il mancato utilizzo nell'applicazione finale la libreria è stata com
 testata in una fase iniziale, è stato utilizzato il modulo \texttt{react-chartjs} per
 React e sono stati fatti alcuni test di integrazione. Tali test hanno dato buoni
 risultati ai primi tentativi, l'impressione ricavata è stata dunque molto buona.
+
+\begin{figure}[H]\label{imgChartJS}
+	\centering
+	\includegraphics[width=.4\columnwidth]{images/chartjs.png}
+	\caption{Screenshot da una schermata statica prodotta come test di integrazione}
+\end{figure}
 
 \begin{table} [H] \centering
 \begin{tabularx}{\textwidth}{|c|X|}
