@@ -135,8 +135,8 @@ L'idea alla base dell'architettura è quella di un flusso di dati \textit{unidir
 questo per rendere le applicazioni scalabili in dimensione senza crescita proporzionale
 di complessità: il pericolo è quello di una serie di dipendenze tra le componenti e di reazioni
 a catena ai cambiamenti che diventano difficilmente prevedibili in un sistema complesso. \\
-Si cerca dunque di evitare questo lasciando che sia il modello stesso (che in questo caso
-si può considerare come una versione aumentata del modello di MVC) a gestire i propri dati
+Si cerca dunque di evitare questo lasciando che sia il \textit{model} stesso (che in questo caso
+si può considerare come una versione aumentata del \textit{model} di MVC) a gestire i propri dati
 e reagire ai cambiamenti, in modo del tutto trasparente all'esterno. \\
 
 Un'applicazione Flux è composta dalle seguenti parti:
@@ -171,17 +171,17 @@ Questa architettura suggerisce una suddivisione del codice in package, per quant
 \fiscoloMobile{} la struttura (nelle sue parti relative a Flux) è la seguente:
 
 \begin{itemize}
-\item \texttt{actions}: contiene tutti gli action creators, suddivisi per pagina
+\item \texttt{actions}: contiene tutti gli action creators, suddivisi per pagina.
 \item \texttt{components}: contiene tutte le pagine dell'applicazione, implementate tramite
 componenti React.
 	\begin{itemize}
-	\item \texttt{common}: contiene tutte le componenti grafiche dell'applicazione
+	\item \texttt{common}: contiene tutte le componenti grafiche dell'applicazione.
 	\end{itemize}
 \item \texttt{constants}: definisce una serie di valori costanti, usati per distinguere
-le diverse \textit{tipologie} di azioni
-\item \texttt{dispatcher}: contiene il Dispatcher dell'applicazione
+le diverse \textit{tipologie} di azioni.
+\item \texttt{dispatcher}: contiene il Dispatcher dell'applicazione.
 \item \texttt{stores}: contiene uno Store per ogni pagina, più uno di utilità generale e uno
-per la navigazione
+per la navigazione.
 \end{itemize}
 
 \paragraph{Un esempio}
@@ -289,7 +289,7 @@ utilizzabili in ambiente React.
 \paragraph{Scarsa documentazione}
 La documentazione di Material Ui consiste soprattutto
 di brevi snippet di codice mostrati come esempio, mancano riferimenti più approfonditi ed
-esempi completi. In alcune occasioni è stato necessario studiare il sorgente\footnote{\texttt{https://github.com/callemall/material-ui}} per capire il
+esempi completi. In alcune occasioni è stato necessario studiare il sorgente\footnote{\texttt{ https://github.com/callemall/material-ui}} per capire il
 funzionamento di alcune componenti.
 
 \paragraph{Poca libertà di azione}
@@ -361,7 +361,7 @@ risultati ai primi tentativi, l'impressione ricavata è stata dunque molto buona
 & Buona integrazione con React \\ \hline
 \textit{Svantaggi}
 & Scarsa documentazione \\ \hline
-& Poca libertà d'azione, di customizzazione dei componenenti \\ \hline
+& Poca libertà d'azione, di customizzazione dei componenti \\ \hline
 & Mancanza di supporto e documentazione riguardo le transizioni \\ \hline \hline
 \textbf{Chart.js} & \\ \hline
 \textit{Vantaggi}
